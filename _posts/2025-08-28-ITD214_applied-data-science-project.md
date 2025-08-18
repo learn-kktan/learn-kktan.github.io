@@ -1,6 +1,6 @@
 ---
 layout: post
-author: Name
+author: Tan Kek Koon (1653601c)
 title: "Applied Data Science Project Documentation"
 categories: ITD214
 ---
