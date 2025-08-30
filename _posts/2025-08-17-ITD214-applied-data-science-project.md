@@ -7,16 +7,31 @@ categories: ITD214
 ## Project Background
 <img width="150" height="150" alt="image" src="https://github.com/user-attachments/assets/d1989408-98ce-49fb-8b8d-0b96a875772c" /><br />
 Mental health issues such as depression, anxiety, and burnout remain prevalent, particularly among younger generation. Despite growing awareness,  stigma around mental illness still persists and generally people still see mental illness as sign of weakness and shun discussions on mental illness.
- Mental health issues often go unnoticed early, only to be identified later when treatment becomes more resource-intensive.
+Mental health issues often go unnoticed early, only to be identified later when treatment becomes more resource-intensive.
+
+The dataset is downloaded from Zenodo Mental Health and Lifestyle Dataset for Sentiment Analysis (version v2, Oct 5, 2024): https://zenodo.org/records/14838680
+It is 5.3MB with 50000 records with 17 columns (User_ID, Age, Gender, Occupation, Country, Mental_Health_Condition, Severity, Consultation_History, Stress_Level, Sleep_Hours, Work_Hours, Physical_Activity_Hours, Social_Media_Usage, Diet_Quality, Smoking_Habit, Alcohol_Consumption, Medication_Usage).
 
 ### Sub-objectives #3:
 Workplace impact: To predict the likelihood of an individual experiencing high stress levels based on their occupation, work hours and other various factors.
+
+The target variable is the **stress level** with categorical values of low, medium and high.
 
 ## Work Accomplished
 Document your work done to accomplish the outcome
 
 ### Data Preparation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+1. Firstly, exploratory data analysis (EDA) is conducted to understand the respective columns.
+2. The stress level frequency is evenly distributed in the low, medium and high categories. It is found that the stress level is also unusually evenly distributed across the occupation, countries, working hours, sleep hours and physical activity.
+3. Working hours per week (max: 80, min: 30), sleep hours per day (max: 10, min: 4), social media usage per day (max: 6, min: 0.5), physical activity per week (max: 10, min: 0).
+4. From statistics shown above, there were signs of overworking, lack of proper sleep, overusage of social media and no physical activity/exercising.
+5. No duplicates were found.
+6. The total number of working hours plus sleeping hours, physical activity and social media usage exceeded the maximum number of hours per week (24 * 7 = 168 hours per week). Thus, only records of the total hours (working hours + sleep hours + physical activity + social media usage) that less than 90% of 168 hours are retained.
+7. The ages are bin to groups of 18-25, 26-35, 36-45, 46-55, 56-65, 66+.
+8. The sleeping hours and social media usage are standarised to weekly hours.
+9. Updated the values in severity (of the mental health condition) to none if the mental health condition is no and it is null value.
+10. For the gender column, updated the value to "Unknown" if it is "non-binary" or "prefer not to say".
+11. Finally, remove the column "Person_ID" and "Age" as it are redundant columns for modelling.
 
 ### Modelling
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
