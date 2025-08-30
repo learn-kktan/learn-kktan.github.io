@@ -26,7 +26,6 @@ To predict the likelihood of an individual experiencing high stress levels based
 The target variable is the **stress level** with ordinal multi-class values of low, medium and high.
 
 ## Work Accomplished
-Document your work done to accomplish the outcome
 
 ### Data Preparation
 1. Firstly, exploratory data analysis (EDA) is conducted to understand the respective columns.
@@ -48,12 +47,37 @@ As the target variable, stress level is an ordinal multi-class, the 4 following 
 - Random forest (blackbox)
 - Deep learning network (Tabnet)
 
-After the data cleansing processes, only 40927 rows are left in the dataset.
-The dataset is split into 60% for training, 20% for validation and 20% for testing. Stratify is used in the splitting to ensure that the data split should preserve the same proportion of classes in the target variable accross both the training and testing sets. This provide more a robust and realistic evaluation of the models' performance.
+**Data Splitting Processes**
+- After the data cleansing processes, only 40927 rows are left in the dataset.
+- The dataset is split into 60% for training, 20% for validation and 20% for testing. Stratify is used in the splitting to ensure that the data split should preserve the same proportion of classes in the target variable accross both the training and testing sets. This provide more a robust and realistic evaluation of the models' performance.
+- After splitting, fit_transform() is applied on the training data to learn the transformation parameters and apply the transformation. transform() is applied on the testing data to apply the same transformation learning from the training data without recalculating the parameters.
 
 #### Logistic regression
 
+- In the logistic regression model, ibfgs solver (optimization algorithms) and maximum iteration as 1000 are setup.
 
+**Confusion Matrix:**
+The actual labels and predicted labels are ~33% respectively.
+<img width="516" height="432" alt="image" src="https://github.com/user-attachments/assets/945b1aaf-13ed-4bcb-8138-cf6a1457ffc9" />
+
+**AUC:**
+<img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/1ac6eb68-ad42-4fd8-83e4-d03c926c1f7c" />
+
+**Top feature Importance for high stress:**
+1. High number of sleep hours.
+2. Uses social social media.
+3. Has mental health condition.
+4. Lives in USA or Germany.
+
+<img width="990" height="590" alt="image" src="https://github.com/user-attachments/assets/00d94741-6112-4a96-9a59-05839e92bf9d" />
+
+**Top 5 feature Importance for low stress:**
+1. Likely to be the age of 26 to 35
+2. Likely to be the age of 46 to 55
+3. Occupation is IT of finance.
+4. Lives in Canada.
+5. Physical activity.
+<img width="990" height="590" alt="image" src="https://github.com/user-attachments/assets/1bd366ad-d82b-4037-b5f3-7d62b0553f03" />
 
 
 #### Decision tree
