@@ -18,8 +18,10 @@ The dataset (version v2, Oct 5, 2024) is downloaded from https://zenodo.org/reco
 
 It is 5.3MB size with 50000 records with 17 columns (User_ID, Age, Gender, Occupation, Country, Mental_Health_Condition, Severity, Consultation_History, Stress_Level, Sleep_Hours, Work_Hours, Physical_Activity_Hours, Social_Media_Usage, Diet_Quality, Smoking_Habit, Alcohol_Consumption, Medication_Usage).
 
-### Sub-objectives Number 3:
-Workplace impact: To predict the likelihood of an individual experiencing high stress levels based on their occupation, work hours and other various factors.
+### Sub-objective Number 3: Workplace Impact
+<img width="179" height="179" alt="image" src="https://github.com/user-attachments/assets/0624a702-17e7-40a9-94f8-1d886309d7d3" />
+
+To predict the likelihood of an individual experiencing high stress levels based on their occupation, work hours and other various factors.
 
 The target variable is the **stress level** with ordinal multi-class values of low, medium and high.
 
