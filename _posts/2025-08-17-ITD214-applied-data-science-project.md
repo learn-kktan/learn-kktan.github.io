@@ -90,7 +90,7 @@ In the decision tree model, a maximum of 5 in the depth is setup.
 **AUC:**
 <img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/1e4ddd30-0397-4c1d-b9ee-9058fd163ae5" />
 
-**Top 5 features importance:**
+**Top 5 features importance (Decision Tree):**
 1. Number of sleep hours
 2. Number of social media usage
 3. Number of work hours
@@ -106,9 +106,40 @@ In the decision tree model, a maximum of 5 in the depth is setup.
 
 
 #### Random forest
+In the random forest model, 500 estimators and a maximum depth of 5 are setup.
+
+**Confusion matrix:**
+<img width="515" height="432" alt="image" src="https://github.com/user-attachments/assets/48141672-c3f0-4e49-8f6d-e3a9077b91ca" />
+
+**AUC:**
+<img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/dc087e14-1d08-4c83-baeb-e2707a102da3" />
+
+**Top feature importance (Random Forest):**
+1. Number of social media usage
+2. Number of sleep hours
+3. Number of work hours
+4. Number of physical activity
+5. Consultation history
+<img width="1069" height="701" alt="image" src="https://github.com/user-attachments/assets/c6339f16-810f-4f47-96c0-1ace459710ab" />
+
+<img width="799" height="940" alt="image" src="https://github.com/user-attachments/assets/550e9f6d-df2e-49ca-a360-613e7e0ad923" />
 
 
-#### Deep learning network (Tabnet)
+#### Deep learning network (Tabnet Classifer)
+Tabnet is a deep learning architecture that is designed to be used for tabular data.
+In the Tabnet classifier, adam optimizer, learning rate of 0.02, step learning rate scheduler, for every 10 epochs, the learning rate is multipled by 0.9 are setup.
+
+**Confusion matrix:**
+<img width="515" height="432" alt="image" src="https://github.com/user-attachments/assets/1590c790-4052-49f9-b192-7c4fdf055e8c" />
+
+**Top 5 feature importance (Tabnet):**
+1. Social alcohol drinker.
+2. Lives in USA/Germany.
+3. Diet is unhealthy.
+4. Occupation is IT.
+5. Is taking medication for mental health.
+<img width="991" height="590" alt="image" src="https://github.com/user-attachments/assets/9f44b85c-7204-42f5-b447-ce55c78b07dc" />
+
 
 ### Evaluation
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
