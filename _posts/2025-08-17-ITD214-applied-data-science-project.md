@@ -1,4 +1,4 @@
----
+<img width="376" height="83" alt="image" src="https://github.com/user-attachments/assets/1b49bd96-ab83-4fb4-a40a-e69b1dcfd56d" />---
 layout: post
 author: Tan Kek Koon (1653601c)
 title: "NYP ITD214 Applied Data Science Project Documentation"
@@ -14,14 +14,14 @@ To develop a data-driven solution that identifies early warning signs and key co
 
 After crawling the web for several related dataset, Zenodo Mental Health and Lifestyle Dataset for Sentiment Analysis is selected for analysing the workplace impact.
 
-The dataset (version v2, Oct 5, 2024) is downloaded from https://zenodo.org/records/14838680
+The dataset (version v2, Oct 5, 2024) can be downloaded from https://zenodo.org/records/14838680
 
-It is 5.3MB size with 50000 records with 17 columns (User_ID, Age, Gender, Occupation, Country, Mental_Health_Condition, Severity, Consultation_History, Stress_Level, Sleep_Hours, Work_Hours, Physical_Activity_Hours, Social_Media_Usage, Diet_Quality, Smoking_Habit, Alcohol_Consumption, Medication_Usage).
+It is a 5.3MB size with 50000 records with 17 columns (User_ID, Age, Gender, Occupation, Country, Mental_Health_Condition, Severity, Consultation_History, **Stress_Level**, Sleep_Hours, Work_Hours, Physical_Activity_Hours, Social_Media_Usage, Diet_Quality, Smoking_Habit, Alcohol_Consumption, Medication_Usage).
 
 ### Sub-objective Number 3: Workplace Impact
 <img width="179" height="179" alt="image" src="https://github.com/user-attachments/assets/0624a702-17e7-40a9-94f8-1d886309d7d3" />
 
-To predict the likelihood of an individual experiencing high stress levels based on their occupation, work hours and other various factors.
+To predict the likelihood of an individual experiencing **high stress levels** based on their occupation, work hours and other various factors.
 
 The target variable is the **stress level** with ordinal multi-class values of low, medium and high.
 
@@ -35,7 +35,7 @@ The target variable is the **stress level** with ordinal multi-class values of l
 5. No duplicates were found.
 6. The total number of working hours plus sleeping hours, physical activity and social media usage exceeded the maximum number of hours per week (24 * 7 = 168 hours per week). Thus, only records of the total hours (working hours + sleep hours + physical activity + social media usage) that less than 90% of 168 hours are retained.
 7. The ages are bin to groups of 18-25, 26-35, 36-45, 46-55, 56-65, 66+.
-8. The sleeping hours and social media usage are standarised to weekly hours.
+8. The sleeping hours and social media usage are standarised to weekly hours to be consistent with the working hours and physical activity.
 9. The values in the severity (of the mental health condition) are updated to none if the mental health condition is no and the original value is null value.
 10. The values in gender are replaced to "Unknown" if it is "non-binary" or "prefer not to say".
 11. Columns "Person_ID" and "Age" are removed as they are non-relevant for modelling.
@@ -45,49 +45,52 @@ As the target variable, stress level is an ordinal multi-class, the 4 following 
 - Logistics regression (whitebox)
 - Decision tree (whitebox)
 - Random forest (blackbox)
-- Deep learning network (Tabnet)
+- Deep learning Tabnet Classifier (blackbox)
 
 **Data Splitting Processes**
-- After the data cleansing processes, only 40927 rows are left in the dataset.
-- The dataset is split into 60% for training, 20% for validation and 20% for testing. Stratify is used in the splitting to ensure that the data split should preserve the same proportion of classes in the target variable accross both the training and testing sets. This provide more a robust and realistic evaluation of the models' performance.
+- After the data is cleansed, only 40927 out of 50000 rows are left in the dataset.
+- One-hot encoding is performed on all the categorical columns except for the target variable.
+- Random state for all the modelling is set to 123.
+- The dataset is split into 60% for training, 20% for validation and 20% for testing. Stratify is used in the splitting to ensure that the data split will preserve the same proportion of classes in the target variable accross both the training and testing sets. This provide more a robust and realistic evaluation of the models' performance.
 - After splitting, fit_transform() is applied on the training data to learn the transformation parameters and apply the transformation. transform() is applied on the testing data to apply the same transformation learning from the training data without recalculating the parameters.
 
-#### Logistic regression
+#### Model 1: Logistic regression
 In the logistic regression model, ibfgs solver (optimization algorithms) and maximum iteration as 1000 are setup.
 
-**Confusion Matrix:**
-The actual labels and predicted labels are ~33% respectively.
+**Confusion Matrix:** <br />
+The actual labels and predicted labels are ~33% respectively.<br />
 <img width="516" height="432" alt="image" src="https://github.com/user-attachments/assets/945b1aaf-13ed-4bcb-8138-cf6a1457ffc9" />
 
-**AUC:**
-
+**AUC:** <br />
+High (50%), low (50%), medium (50%) are having a random guess linear line. <br />
 <img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/1ac6eb68-ad42-4fd8-83e4-d03c926c1f7c" />
 
 
-**Top feature Importance for high stress:**
+**Top feature Importance for high stress (with logistic regression):**
 1. High number of sleep hours.
 2. Uses social social media.
 3. Has mental health condition.
 4. Lives in USA or Germany.
 <img width="990" height="590" alt="image" src="https://github.com/user-attachments/assets/00d94741-6112-4a96-9a59-05839e92bf9d" />
 
-**Top 5 feature Importance for low stress:**
+**Top 5 feature Importance for low stress (with logistic regression):**
 1. Likely to be the age of 26 to 35
 2. Likely to be the age of 46 to 55
-3. Occupation is IT of finance.
+3. Occupation is IT/finance.
 4. Lives in Canada.
 5. Physical activity.
 <img width="990" height="590" alt="image" src="https://github.com/user-attachments/assets/1bd366ad-d82b-4037-b5f3-7d62b0553f03" />
 
 
-#### Decision tree
+#### Model 2: Decision tree
 In the decision tree model, a maximum of 5 in the depth is setup.
 
-**Confusion Matrix:**
-
+**Confusion Matrix:** <br/>
+The actual labels and predicted labels are ~33% respectively.<br />
 <img width="515" height="432" alt="image" src="https://github.com/user-attachments/assets/6c3da1de-54e9-496a-9f64-0e05590057b6" />
 
-**AUC:**
+**AUC:** <br />
+High (50%), low (50%), medium (50%) are having a random guess linear line. <br />
 <img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/1e4ddd30-0397-4c1d-b9ee-9058fd163ae5" />
 
 **Top 5 features importance (Decision Tree):**
@@ -105,13 +108,15 @@ In the decision tree model, a maximum of 5 in the depth is setup.
 <img width="1574" height="812" alt="image" src="https://github.com/user-attachments/assets/56ec3a4a-d172-4f70-b5ab-8046fd391a9e" />
 
 
-#### Random forest
+#### Model 3: Random forest
 In the random forest model, 500 estimators and a maximum depth of 5 are setup.
 
-**Confusion matrix:**
+**Confusion matrix:** <br />
+The actual labels and predicted labels are ~33% respectively.<br />
 <img width="515" height="432" alt="image" src="https://github.com/user-attachments/assets/48141672-c3f0-4e49-8f6d-e3a9077b91ca" />
 
-**AUC:**
+**AUC:** <br />
+High (50%), low (50%), medium (50%) are having a random guess linear line.
 <img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/dc087e14-1d08-4c83-baeb-e2707a102da3" />
 
 **Top feature importance (Random Forest):**
@@ -122,15 +127,25 @@ In the random forest model, 500 estimators and a maximum depth of 5 are setup.
 5. Consultation history
 <img width="1069" height="701" alt="image" src="https://github.com/user-attachments/assets/c6339f16-810f-4f47-96c0-1ace459710ab" />
 
+**SHAP (SHapley Additive exPlanations) Plot for High Level of Stress**
+
+Blue dots: Low feature value<br />
+Red dot: High feature value<br />
+
+Insights from SHAP Plot:
+- High number of social media usage.
+- Long working hours.
+- Works as IT.
+- Lives in USA.
+- Sleeps for long hours.
+- Spends little time in physical activity.
+
 <img width="799" height="940" alt="image" src="https://github.com/user-attachments/assets/550e9f6d-df2e-49ca-a360-613e7e0ad923" />
 
 
-#### Deep learning network (Tabnet Classifer)
+#### Model 4: Deep learning network (Tabnet Classifer)
 Tabnet is a deep learning architecture that is designed to be used for tabular data.
 In the Tabnet classifier, adam optimizer, learning rate of 0.02, step learning rate scheduler, for every 10 epochs, the learning rate is multipled by 0.9 are setup.
-
-**Confusion matrix:**
-<img width="515" height="432" alt="image" src="https://github.com/user-attachments/assets/1590c790-4052-49f9-b192-7c4fdf055e8c" />
 
 **Top 5 feature importance (Tabnet):**
 1. Social alcohol drinker.
@@ -142,17 +157,40 @@ In the Tabnet classifier, adam optimizer, learning rate of 0.02, step learning r
 
 
 ### Evaluation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+
+Model/Metrics         | Logistic Regression   |     Decision Tree     |     Random Forest    |   TabNet Classifer   |
+--------------------- | --------------------- | --------------------- | ---------------------|----------------------|
+Accuracy              |         33%           |         33%           |          33%         |        33%           |
+Precision             | 34% (High) 33% (Low)  | 33% (High) 32% (Low)  | 33% (High) 32% (Low) | 34% (High) 23% (Low) |
+Recall                | 33% (High) 22% (Low)  | 54% (High) 11% (Low)  | 54% (High) 11% (Low) | 42% (High) 0% (Low) |
+
+As our main goal is to detect the high level of stress, we will use the highest score value in the recall to prevent false negatives where the patient is having a high level of stress but predicted as not stressed.
+Decision tree and random forest will be selected as the models to predict the high level of stress in the workplace. Decision tree can be used to drill-in to gain more insights of the actual values in the factors.
+
+From the 4 models discussed above, it can be shown that the most important and common features are
+- Social media usage
+- Sleep hours
+- Work hours
+- Physical activity
 
 ## Recommendation and Analysis
-Explain the analysis and recommendations
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+**Business recommendation:** <br />
+- For detection of high level of stress in the workplace, we can identify it from the number of sleep hours, long working hours and high usage of social media.
+- Company should cap the maximum number of working hours per week for work-life balance. Social media platforms (FB, Instagram, TikTok) can program algorithms to detect stress patterns from the heavy usage/posts made and send out mental health advisory to users.
+
+**Data analysis** <br />
+- From the low accuracy (33%) and linear line (50%) in the area under curve (AOC) shown in the 4 models, the features in the dataset might not be able to relate to the target variable, level of stress or contain many noise.
+- The poor quality data could be manipulated because the distribution is too perfectly evenly distributed across all columns.
 
 ## AI Ethics
-Discuss the potential data science ethics issues (privacy, fairness, accuracy, accountability, transparency) in your project. 
+Discussion of the potential data science ethics issues (privacy, fairness, accuracy, accountability, transparency) in the project. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+- Tbere is no personal data in the dataset thus there is no privacy issue. Masking/removal of data is not required during the data preparation stage.
+- The gender column could be removed from the modelling to ensure that there is fairness and no bias.
+- The data has signs of error in the high working hours (80 hours per week) that lead to the low accuracy in modelling.
+- Accountability..????
+- Proper documentation of the data source, processing steps and modelling are done to ensure there is transparency.
 
 ## Source Codes and Datasets
 This is the <a href="https://github.com/learn-kktan/ITD214_Project" target="_blank">link</a> to the source code of the modelling and dataset.
