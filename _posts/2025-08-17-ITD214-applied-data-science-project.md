@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Tan Kek Koon (1653601c)
-title: "Applied Data Science Project Documentation"
+title: "NYP ITD214 Applied Data Science Project Documentation"
 categories: ITD214
 ---
 ## Project Background
