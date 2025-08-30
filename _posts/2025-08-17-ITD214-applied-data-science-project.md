@@ -53,22 +53,22 @@ As the target variable, stress level is an ordinal multi-class, the 4 following 
 - After splitting, fit_transform() is applied on the training data to learn the transformation parameters and apply the transformation. transform() is applied on the testing data to apply the same transformation learning from the training data without recalculating the parameters.
 
 #### Logistic regression
-
-- In the logistic regression model, ibfgs solver (optimization algorithms) and maximum iteration as 1000 are setup.
+In the logistic regression model, ibfgs solver (optimization algorithms) and maximum iteration as 1000 are setup.
 
 **Confusion Matrix:**
 The actual labels and predicted labels are ~33% respectively.
 <img width="516" height="432" alt="image" src="https://github.com/user-attachments/assets/945b1aaf-13ed-4bcb-8138-cf6a1457ffc9" />
 
 **AUC:**
+
 <img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/1ac6eb68-ad42-4fd8-83e4-d03c926c1f7c" />
+
 
 **Top feature Importance for high stress:**
 1. High number of sleep hours.
 2. Uses social social media.
 3. Has mental health condition.
 4. Lives in USA or Germany.
-
 <img width="990" height="590" alt="image" src="https://github.com/user-attachments/assets/00d94741-6112-4a96-9a59-05839e92bf9d" />
 
 **Top 5 feature Importance for low stress:**
@@ -81,6 +81,29 @@ The actual labels and predicted labels are ~33% respectively.
 
 
 #### Decision tree
+In the decision tree model, a maximum of 5 in the depth is setup.
+
+**Confusion Matrix:**
+
+<img width="515" height="432" alt="image" src="https://github.com/user-attachments/assets/6c3da1de-54e9-496a-9f64-0e05590057b6" />
+
+**AUC:**
+<img width="846" height="701" alt="image" src="https://github.com/user-attachments/assets/1e4ddd30-0397-4c1d-b9ee-9058fd163ae5" />
+
+**Top 5 features importance:**
+1. Number of sleep hours
+2. Number of social media usage
+3. Number of work hours
+4. Number of physical activity
+5. Severity of the mental health condition is low
+<img width="1069" height="701" alt="image" src="https://github.com/user-attachments/assets/90bcfba2-9ee2-4e7b-af9c-26b8dbb30db2" />
+
+**Trees in Decision Tree**
+- On the top of the tree, it is splitted by the consultation history.
+- On the left side of split (with consulted history), factors such as other country, Canada, number of sleep hours contribute to high stress.
+- On the right side of split (with no consulted history), factors such as number of physical activity (low), number of social media usage (high) contribute to high stress.
+<img width="1574" height="812" alt="image" src="https://github.com/user-attachments/assets/56ec3a4a-d172-4f70-b5ab-8046fd391a9e" />
+
 
 #### Random forest
 
