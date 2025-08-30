@@ -1,4 +1,4 @@
-<img width="376" height="83" alt="image" src="https://github.com/user-attachments/assets/1b49bd96-ab83-4fb4-a40a-e69b1dcfd56d" />---
+---
 layout: post
 author: Tan Kek Koon (1653601c)
 title: "NYP ITD214 Applied Data Science Project Documentation"
